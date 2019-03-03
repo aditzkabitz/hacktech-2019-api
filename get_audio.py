@@ -22,13 +22,13 @@ def split(file_path):
 
 
 def get_metadata(url):
-	result = []
+	result = ()
 	with youtube_dl.YoutubeDL({'format': 'bestaudio/best'}) as ydl:
 		info_dict = ydl.extract_info(url, download=False)
 		video_id = info_dict.get('id', None)
 		video_title = info_dict.get('title', None)
-	result.append(video_title)
-	result.append(video_id)
+	result[0] = video_title
+	result[1] = video_id
 	return result
 
 
@@ -60,13 +60,5 @@ def video_transcript(url):
 		result = result + " " + recognize_audio("data/" + split_file)
 		os.remove("data/" + split_file)
 	os.remove(file)
+	print(result)
 	return result
-
-# def main():
-# 	# url = "https://www.youtube.com/watch?v=Y5Nu7U1ucXA"
-# 	# url = "https://www.youtube.com/watch?v=C7ducZoLKgw"
-# 	video_transcript("https://www.youtube.com/watch?v=Y5Nu7U1ucXA")
-
-
-# if __name__ == '__main__':
-# 	main()
